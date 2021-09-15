@@ -17,7 +17,7 @@ const SafeArea = styled.SafeAreaView`
 `;
 
 const ViewWithPadding = styled.View`
-  padding: 15px;
+  padding: ${(props) => props.theme.space[3]};
 `;
 
 export const RestaurantsScreen = () => (
