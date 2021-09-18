@@ -28,7 +28,7 @@ export const RestaurantsContextProvider = ({ children }) => {
           setError(err);
           setIsLoading(false);
         });
-    }, 500);
+    }, 100);
   };
   useEffect(() => {
     if (location) {
