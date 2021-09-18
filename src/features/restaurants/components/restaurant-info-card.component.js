@@ -14,7 +14,6 @@ import {
 } from "./restaurant-info-card.styles";
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
-  console.log(restaurant);
   const {
     name,
     icon,
@@ -23,19 +22,25 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     isOpenNow,
     rating,
     isClosedTemporarily,
+    placeId,
   } = restaurant;
   const ratingArray = Array.from(new Array(Math.ceil(rating)));
   return (
-    <Card key={name} elevation={5} style={{ marginBottom: 15 }}>
+    <Card elevation={5} style={{ marginBottom: 15 }}>
       <Card.Content>
-        <Card.Cover source={{ uri: photos[0] }} />
+        <Card.Cover key={name} source={{ uri: photos[0] }} />
       </Card.Content>
       <Info>
         <Text variant="label"> {name}</Text>
         <Section>
           <Rating>
-            {ratingArray.map(() => (
-              <SvgXml xml={star} width={20} height={20} />
+            {ratingArray.map((_, index) => (
+              <SvgXml
+                key={`star-${placeId}-${index}`}
+                xml={star}
+                width={20}
+                height={20}
+              />
             ))}
           </Rating>
           {isClosedTemporarily && (

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { FlatList } from "react-native";
-import { Searchbar } from "react-native-paper";
+import { ActivityIndicator, Searchbar } from "react-native-paper";
 import styled from "styled-components";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
-
+import { Search } from "../components/search.component";
 import {
   Platform,
   StyleSheet,
@@ -32,12 +32,13 @@ export const RestaurantsScreen = () => {
   return (
     <SafeArea>
       <ViewWithPadding>
-        <Searchbar placeholder="Search" />
+        <Search />
       </ViewWithPadding>
+      {isLoading && <ActivityIndicator animating={true} size="large" />}
       <RestaurantsList
         data={restaurants}
         renderItem={({ item }) => {
-          return <RestaurantInfoCard restaurant={item} />;
+          return <RestaurantInfoCard key={item.name} restaurant={item} />;
         }}
         keyExtractor={(item) => item.name}
       />
