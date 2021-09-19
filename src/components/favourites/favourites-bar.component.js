@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ScrollView, View } from "react-native";
 import { Text } from "../typography/text.component";
 import { TouchableOpacity } from "react-native";
+import { CompactRestaurantInfo } from "../restaurant/compact-restaurant-info.component";
 const FavouritesWrapper = styled.View`
   padding: 10px;
 `;
@@ -25,7 +26,7 @@ export const FavouritesBar = ({ favourites, onNavigate }) => {
                   });
                 }}
               >
-                <Text>{restaurant.name}</Text>
+                <CompactRestaurantInfo restaurant={restaurant} />
               </TouchableOpacity>
             </View>
           );
