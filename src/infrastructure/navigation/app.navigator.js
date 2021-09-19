@@ -4,11 +4,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text } from "../../components/typography/text.component";
 import { Ionicons } from "@expo/vector-icons";
 import { RestaurantsNavigator } from "./restaurants.navigator";
+import { MapScreen } from "../../features/map/screens/map.screen";
+
 const Tab = createBottomTabNavigator();
 
 const Settings = () => <Text>Settings</Text>;
-
-const Maps = () => <Text>Settings</Text>;
 
 const TAB_ICON = {
   Restaurants: "md-restaurant",
@@ -31,7 +31,7 @@ export const Navigator = () => {
       <Tab.Navigator screenOptions={createScreenOptions}>
         <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
         <Tab.Screen name="Settings" component={Settings} />
-        <Tab.Screen name="Maps" component={Maps} />
+        <Tab.Screen name="Maps" component={MapScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -1,20 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import styled from "styled-components";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
+import { FavouritesContext } from "../../../services/favourites/favourites.context";
+import { FavouritesBar } from "../../../components/favourites/favourites-bar.component";
 import { Search } from "../components/search.component";
-import { Platform, StatusBar } from "react-native";
-
-const SafeArea = styled.SafeAreaView`
-  flex: 1;
-  padding-top: ${Platform.OS === "android" ? StatusBar.currentHeight : 0}px;
-`;
-
-const ViewWithPadding = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-`;
+import { SafeArea, ViewWithPadding } from "../components/safe-area.component";
 
 const RestaurantsList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -23,11 +16,22 @@ const RestaurantsList = styled(FlatList).attrs({
 })``;
 export const RestaurantsScreen = ({ navigation }) => {
   const { restaurants, isLoading } = useContext(RestaurantsContext);
+  const [isToggled, setIsToggled] = useState(false);
+  const { favourites } = useContext(FavouritesContext);
   return (
     <SafeArea>
       <ViewWithPadding>
-        <Search />
+        <Search
+          isFavouriteToggled={isToggled}
+          onFavouriteToggle={() => setIsToggled(!isToggled)}
+        />
       </ViewWithPadding>
+      {isToggled && (
+        <FavouritesBar
+          favourites={favourites}
+          onNavigate={navigation.navigate}
+        />
+      )}
       {isLoading && <ActivityIndicator animating={true} size="large" />}
       <RestaurantsList
         data={restaurants}

@@ -19,7 +19,6 @@ export const LocationContextProvider = ({ children }) => {
       .then(locationTransform)
       .then((result) => {
         setLocation(result);
-        console.log(keyword, result);
         setIsLoading(false);
       })
       .catch((err) => {
