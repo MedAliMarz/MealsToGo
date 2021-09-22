@@ -14,6 +14,26 @@ const RestaurantsList = styled(FlatList).attrs({
     padding: 16,
   },
 })``;
+
+export const RestaurantsListComponent = (restaurants, navigation) => (
+  <RestaurantsList
+    data={restaurants}
+    renderItem={({ item }) => {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("RestaurantDetail", {
+              restaurant: item,
+            });
+          }}
+        >
+          <RestaurantInfoCard restaurant={item} />
+        </TouchableOpacity>
+      );
+    }}
+    keyExtractor={(item) => item.name}
+  />
+);
 export const RestaurantsScreen = ({ navigation }) => {
   const { restaurants, isLoading } = useContext(RestaurantsContext);
   const [isToggled, setIsToggled] = useState(false);
@@ -33,23 +53,7 @@ export const RestaurantsScreen = ({ navigation }) => {
         />
       )}
       {isLoading && <ActivityIndicator animating={true} size="large" />}
-      <RestaurantsList
-        data={restaurants}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("RestaurantDetail", {
-                  restaurant: item,
-                });
-              }}
-            >
-              <RestaurantInfoCard restaurant={item} />
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={(item) => item.name}
-      />
+      {RestaurantsListComponent(restaurants, navigation)}
     </SafeArea>
   );
 };

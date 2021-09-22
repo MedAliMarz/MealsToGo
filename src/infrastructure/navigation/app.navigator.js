@@ -1,14 +1,20 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text } from "../../components/typography/text.component";
 import { Ionicons } from "@expo/vector-icons";
 import { RestaurantsNavigator } from "./restaurants.navigator";
 import { MapScreen } from "../../features/map/screens/map.screen";
+import { Button } from "react-native-paper";
+import { SafeArea } from "../../features/restaurants/components/safe-area.component";
+import { AuthenticationContext } from "../../services/authentication/authentication.context";
+
+import { RestaurantsContextProvider } from "../../services/restaurants/restaurants.context";
+import { FavouritesContextProvider } from "../../services/favourites/favourites.context";
+import { LocationContextProvider } from "../../services/location/location.context";
+
+import { SettingsNavigator } from "./settings.navigator";
 
 const Tab = createBottomTabNavigator();
-
-const Settings = () => <Text>Settings</Text>;
 
 const TAB_ICON = {
   Restaurants: "md-restaurant",
@@ -27,12 +33,16 @@ const createScreenOptions = ({ route }) => {
 };
 export const Navigator = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
-        <Tab.Screen name="Settings" component={Settings} />
-        <Tab.Screen name="Maps" component={MapScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <FavouritesContextProvider>
+      <LocationContextProvider>
+        <RestaurantsContextProvider>
+          <Tab.Navigator screenOptions={createScreenOptions}>
+            <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
+            <Tab.Screen name="Settings" component={SettingsNavigator} />
+            <Tab.Screen name="Maps" component={MapScreen} />
+          </Tab.Navigator>
+        </RestaurantsContextProvider>
+      </LocationContextProvider>
+    </FavouritesContextProvider>
   );
 };
