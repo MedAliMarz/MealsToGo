@@ -23,7 +23,7 @@ export const LoginScreen = ({ navigation }) => {
           mode="outlined"
           value={email}
           label="Email"
-          textContentType="email"
+          textContentType="emailAddress"
           keyboardType="email-address"
           placeholder="Email"
           onChangeText={(text) => {

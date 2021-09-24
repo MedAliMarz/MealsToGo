@@ -5,29 +5,25 @@ import {
 } from "@react-navigation/stack";
 import { FavouritesScreen } from "../../features/settings/screens/favourites.screen";
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
+import { CameraScreen } from "../../features/settings/screens/camera.screen";
 const Stack = createStackNavigator();
 export const SettingsNavigator = ({ route, navigation }) => {
   return (
     <Stack.Navigator
-      headerMode="screen"
       screenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        headerShown: false,
       }}
     >
       <Stack.Screen
         options={{
           header: () => null,
         }}
-        name="Settings"
+        name="SettingsScreen"
         component={SettingsScreen}
       />
-      <Stack.Screen
-        options={{
-          header: () => null,
-        }}
-        name="Favourite"
-        component={FavouritesScreen}
-      />
+      <Stack.Screen name="Favourite" component={FavouritesScreen} />
+      <Stack.Screen name="Camera" component={CameraScreen} />
     </Stack.Navigator>
   );
 };

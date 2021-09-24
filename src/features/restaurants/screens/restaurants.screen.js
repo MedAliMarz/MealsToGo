@@ -53,7 +53,7 @@ export const RestaurantsScreen = ({ navigation }) => {
         />
       )}
       {isLoading && <ActivityIndicator animating={true} size="large" />}
-      {RestaurantsListComponent(restaurants, navigation)}
+      {/* {RestaurantsListComponent(restaurants, navigation)} */}
     </SafeArea>
   );
 };
